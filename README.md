@@ -16,3 +16,4 @@ Jump into any particular step of the tutorial with a branch:
 
     $ npm i
     $ npm run dev
+# soft2-pro
