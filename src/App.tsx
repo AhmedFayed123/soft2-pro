@@ -1,61 +1,45 @@
-import { useQuery, useMutation } from "convex/react";
-import { api } from "../convex/_generated/api";
-import { useEffect, useState } from "react";
-import { faker } from "@faker-js/faker";
+import Second from '../src/component/second'
+import First from '../src/component/first'
+import Third from '../src/component/third'
+import { Route, Routes ,Link} from "react-router-dom";
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 
-// For demo purposes. In a real app, you'd have real user data.
-const NAME = faker.person.firstName();
-
-export default function App() {
-  const messages = useQuery(api.messages.list);
-  const sendMessage = useMutation(api.messages.send);
-
-  const [newMessageText, setNewMessageText] = useState("");
-
-  useEffect(() => {
-    // Make sure scrollTo works on button click in Chrome
-    setTimeout(() => {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-    }, 0);
-  }, [messages]);
-
+const App = ()=>{
+  
   return (
-    <main className="chat">
-      <header>
-        <h1>Convex Chat</h1>
-        <p>
-          Connected as <strong>{NAME}</strong>
-        </p>
-      </header>
-      {messages?.map((message) => (
-        <article
-          key={message._id}
-          className={message.author === NAME ? "message-mine" : ""}
-        >
-          <div>{message.author}</div>
-
-          <p>{message.body}</p>
-        </article>
-      ))}
-      <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          await sendMessage({ body: newMessageText, author: NAME });
-          setNewMessageText("");
-        }}
-      >
-        <input
-          value={newMessageText}
-          onChange={async (e) => {
-            const text = e.target.value;
-            setNewMessageText(text);
-          }}
-          placeholder="Write a message…"
-        />
-        <button type="submit" disabled={!newMessageText}>
-          Send
-        </button>
-      </form>
-    </main>
-  );
+   <div>
+    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <Toolbar>
+          <Typography variant="h6" noWrap component="div">
+          <span>
+          <ul >
+            <li id='x'>Hair Salon</li>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li><Link to="/">1 First-Step  &rarr; </Link></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li><Link to="/second">2 Second-Step  &rarr; </Link></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li><Link to="/third">Finish</Link></li>
+            
+          </ul>
+          </span>
+         
+          
+         
+          
+          </Typography>
+        </Toolbar>
+      </AppBar>     <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+    <Routes>
+   <Route path='/' element={<First />} />
+   <Route path='/second' element={<Second />} />
+   <Route path='/third' element={<Third />} />
+   </Routes>
+   </div>
+   
+   
+ )
 }
+
+export default App;
